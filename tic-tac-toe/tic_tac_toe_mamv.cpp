@@ -1,5 +1,4 @@
-/* Miguel Angel Moreno Vázquez
-   Cuenta: 25134140 */
+/* MAMV */
 
 #include <iostream>
 using namespace std;

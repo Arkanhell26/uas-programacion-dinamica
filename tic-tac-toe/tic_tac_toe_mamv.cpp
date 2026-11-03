@@ -18,25 +18,31 @@ int main() {
   char tablero[9];
   char turno = 'X';
 
+  // Llena el tablero con los números 1-9
   for (int i = 0; i < 9; i++) {
     tablero[i] = '0' + i + 1;
   }
 
-  mostrarTablero(tablero);
+  // Loop principal: máximo 9 jugadas
+  for (int j = 0; j < 9; j++) {
+    mostrarTablero(tablero);
 
-  char casilla;
-  int indice;
-  do {
-    cout << "Elige una casilla: ";
-    cin >> casilla;
-    indice = casilla - '0' - 1;
-  } while (tablero[indice] != casilla);
+    char casilla;
+    int indice;
+    do {
+      cout << "Elige una casilla: ";
+      cin >> casilla;
+      indice = casilla - '0' - 1;
+    } while (tablero[indice] != casilla);
 
-  tablero[indice] = turno;
-  if (turno == 'X') {
-    turno = 'O';
-  } else {
-    turno = 'X';
+    tablero[indice] = turno;
+
+    // Cambia el turno
+    if (turno == 'X') {
+      turno = 'O';
+    } else {
+      turno = 'X';
+    }
   }
 
   return 0;

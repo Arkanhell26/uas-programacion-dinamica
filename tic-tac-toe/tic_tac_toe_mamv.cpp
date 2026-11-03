@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+// Muestra el tablero en pantalla, dividido en 3 filas de 3 casillas
 void mostrarTablero(char tablero[]) {
   cout << tablero[0] << '|' << tablero[1] << '|' << tablero[2] << '\n';
   cout << "-----" << '\n';
@@ -15,6 +16,7 @@ void mostrarTablero(char tablero[]) {
 
 int main() {
   char tablero[9];
+  char turno = 'X';
 
   for (int i = 0; i < 9; i++) {
     tablero[i] = '0' + i + 1;
@@ -29,6 +31,13 @@ int main() {
     cin >> casilla;
     indice = casilla - '0' - 1;
   } while (tablero[indice] != casilla);
+
+  tablero[indice] = turno;
+  if (turno == 'X') {
+    turno = 'O';
+  } else {
+    turno = 'X';
+  }
 
   return 0;
 }

@@ -29,11 +29,13 @@ int main() {
 
     char casilla;
     int indice;
+
+    // Pide la casilla hasta que sea válida (existe y está libre)
     do {
       cout << "Elige una casilla: ";
       cin >> casilla;
       indice = casilla - '0' - 1;
-    } while (tablero[indice] != casilla);
+    } while (indice < 0 || indice > 8 || tablero[indice] != casilla);
 
     tablero[indice] = turno;
 

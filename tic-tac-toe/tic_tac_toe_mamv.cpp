@@ -40,52 +40,61 @@ char revisarGanador(char tablero[]) {
 }
 
 int main() {
-  char tablero[9];
-  char turno = 'X';
-  char ganador = ' ';
+  char jugarDeNuevo = 'S';
 
-  // Llena el tablero con los números 1-9
-  for (int i = 0; i < 9; i++) {
-    tablero[i] = '0' + i + 1;
-  }
+  // Loop externo: permite reiniciar el juego (mejora opcional de la rúbrica)
+  while (jugarDeNuevo == 'S' || jugarDeNuevo == 's') {
+    char tablero[9];
+    char turno = 'X';
+    char ganador = ' ';
 
-  // Loop principal: máximo 9 jugadas (se corta antes si hay ganador)
-  for (int j = 0; j < 9; j++) {
+    // Llena el tablero con los números 1-9
+    for (int i = 0; i < 9; i++) {
+      tablero[i] = '0' + i + 1;
+    }
+
+    // Loop principal: máximo 9 jugadas (se corta antes si hay ganador)
+    for (int j = 0; j < 9; j++) {
+      mostrarTablero(tablero);
+
+      char casilla;
+      int indice;
+
+      // Pide la casilla hasta que sea válida (existe y está libre)
+      do {
+        cout << "Turno de " << turno << ". Elige una casilla: ";
+        cin >> casilla;
+        indice = casilla - '0' - 1;
+      } while (indice < 0 || indice > 8 || tablero[indice] != casilla);
+
+      tablero[indice] = turno;
+
+      // Revisa si esa jugada generó un ganador
+      ganador = revisarGanador(tablero);
+      if (ganador != ' ') {
+        break; // ya hay ganador, se sale del loop de jugadas
+      }
+
+      // Cambia el turno
+      if (turno == 'X') {
+        turno = 'O';
+      } else {
+        turno = 'X';
+      }
+    }
+
     mostrarTablero(tablero);
 
-    char casilla;
-    int indice;
-
-    // Pide la casilla hasta que sea válida (existe y está libre)
-    do {
-      cout << "Turno de " << turno << ". Elige una casilla: ";
-      cin >> casilla;
-      indice = casilla - '0' - 1;
-    } while (indice < 0 || indice > 8 || tablero[indice] != casilla);
-
-    tablero[indice] = turno;
-
-    // Revisa si esa jugada generó un ganador
-    ganador = revisarGanador(tablero);
+    // Resultado final
     if (ganador != ' ') {
-      break; // ya hay ganador, se sale del loop de jugadas
-    }
-
-    // Cambia el turno
-    if (turno == 'X') {
-      turno = 'O';
+      cout << "¡Gano el jugador " << ganador << "!" << '\n';
     } else {
-      turno = 'X';
+      cout << "Empate, nadie gano." << '\n';
     }
-  }
 
-  mostrarTablero(tablero);
-
-  // Resultado final
-  if (ganador != ' ') {
-    cout << "¡Gano el jugador " << ganador << "!" << '\n';
-  } else {
-    cout << "Empate, nadie gano." << '\n';
+    cout << "¿Jugar de nuevo? (S/N): ";
+    cin >> jugarDeNuevo;
+    cout << '\n';
   }
 
   return 0;
